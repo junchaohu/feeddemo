@@ -1,0 +1,48 @@
+<div class="wrapper wrapper-content  animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-6" ng-controller="MailController">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>邮件</h3>
+                    
+                    <a ng-click="addRecipient()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加收件人</a>
+                    <a ng-click="editConfig()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-edit"></i> 编辑服务器</a>
+                    <ul  class="sortable-list agile-list">
+                        <li class="success-element" ng-repeat="recipient in recipients">
+                            {{recipient.name}}
+                            <div class="agile-detail">
+                                <a href="" ng-click="deleteRecipient(recipient)" class="pull-right btn btn-xs btn-danger">删除</a>
+                                <a href="" ng-click="editRecipient(recipient)"  class="pull-right btn btn-xs btn-info">修改</a>
+                                
+                                <i class="fa fa-envelope-o"></i> {{recipient.email}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="SMSController">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>短信</h3>
+                    <a ng-click="addRecipient()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加联系人</a>
+                    <a ng-click="editConfig()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-edit"></i> 编辑短信模块</a>
+                    <ul  class="sortable-list agile-list" >
+                        <li class="info-element" ng-repeat="recipient in recipients">
+                            {{recipient.name}}
+                            <div class="agile-detail">
+                                <a href="" ng-click="deleteRecipient(recipient)" class="pull-right btn btn-xs btn-danger">删除</a>
+                                <a href="" ng-click="editRecipient(recipient)"  class="pull-right btn btn-xs btn-info">修改</a>
+                                <i class="fa fa-mobile"></i>  {{recipient.mobile_number}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+</div>

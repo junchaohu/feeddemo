@@ -1,0 +1,72 @@
+	<div class="wrapper wrapper-content">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+
+					<uib-tabset>
+							<uib-tab heading="能耗分类设置">
+								<div class="panel-body" ng-controller="CategoryController">
+									<a ng-click="addCategory()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加能耗分类</a>
+									<table class="table table-bordered table-hover" >
+										<thead>
+											<tr>
+												<th class="text-center">名称</th>
+												<th class="text-center">单位</th>
+												<th class="text-center">标准煤系数</th>
+												<th class="text-center">CO<sub>2</sub>系数</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="category in categories">
+												<td class="text-center">{{ category.name }}</td>
+												<td class="text-center">{{ category.unit_of_measure }}</td>
+												<td class="text-center">{{ category.kgce }}</td>
+												<td class="text-center">{{ category.kgco2e }}</td>
+												<td class="text-center">
+													<a class="btn btn-primary btn-rounded btn-xs" ng-click="editCategory(category)" >修改</a>
+													<a ng-click="deleteCategory(category)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</uib-tab>
+
+							<uib-tab heading="能耗分项设置">
+								<div class="panel-body" ng-controller="UtilityController">
+									<a ng-click="addUtility()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加能耗分项</a>
+									<table class="table table-bordered table-hover" >
+										<thead>
+											<tr>
+												<th class="text-center">名称</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="utility in utilities">
+												<td class="text-center">{{ utility.name }}</td>
+												<td class="text-center">
+													<a ng-click="editUtility(utility)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+													<a ng-click="deleteUtility(utility)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</uib-tab>
+
+							
+
+						</uib-tabset>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>

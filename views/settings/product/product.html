@@ -1,0 +1,112 @@
+	<div class="wrapper wrapper-content" ng-controller="ProductParentController">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+
+					<uib-tabset>
+						<uib-tab heading="产品">
+							<div class="panel-body" ng-controller="ProductController">
+								<a ng-click="addProduct()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加产品</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">单位</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="product in products">
+											<td class="text-center">{{ product.name }}</td>
+											<td class="text-center">{{ product.unit_of_measure }}</td>
+											<td class="text-center">
+												<a class="btn btn-primary btn-rounded btn-xs" ng-click="editProduct(product)" >修改</a>
+												<a ng-click="deleteProduct(product)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+						<uib-tab heading="复杂产品" >
+							<div class="panel-body" ng-controller="ComplexController">
+								<a ng-click="addComplex()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加复杂产品</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">单位</th>
+											<th class="text-center">操作</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="complex in complexes">
+											<td class="text-center">{{ complex.name }}</td>
+											<td class="text-center">{{ complex.unit_of_measure }}</td>
+											
+											<td class="text-center">
+												<a class="btn btn-primary btn-rounded btn-xs" ng-click="editComplex(complex)" >修改</a>
+												<a ng-click="deleteComplex(complex)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+						<uib-tab heading="复杂产品零件" >
+							<div class="panel-body" ng-controller="PartController">
+								<form method="get" class="form-horizontal">
+								<div class="form-group"><label class="col-sm-2 control-label">请选择复杂产品</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="complex in complexes" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentComplex" type="radio" id="complex{{complex.id}}" ng-value="complex.id" name="radioComplex" ng-change="changeComplex()">
+												<label for="complex{{complex.id}}"> {{complex.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<a ng-click="addPart()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加零件</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">操作</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="part in parts">
+											<td class="text-center">{{ part.name }}</td>
+											
+											<td class="text-center">
+												<a class="btn btn-primary btn-rounded btn-xs" ng-click="editPart(part)" >修改</a>
+												<a ng-click="deletePart(part)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+
+
+
+					</uib-tabset>
+
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>

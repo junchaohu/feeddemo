@@ -1,0 +1,37 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">{{operation}}能耗分类</h4>
+    </div>
+    <div class="modal-body">
+        <form method="get" class="form-horizontal">
+            <div class="form-group"><label class="col-sm-3 control-label">名称</label>
+
+                <div class="col-sm-9"><input ng-model="category.name" type="text" class="form-control"></div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            
+            <div class="form-group"><label class="col-sm-3 control-label">单位</label>
+
+                <div class="col-sm-9"><input ng-model="category.unit_of_measure"  class="form-control"></div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group"><label class="col-sm-3 control-label">标准煤系数</label>
+
+                <div class="col-sm-9"><input ng-model="category.kgce" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group"><label class="col-sm-3 control-label">CO<sub>2</sub>系数</label>
+
+                <div class="col-sm-9"><input ng-model="category.kgco2e" type="text" class="form-control">
+                </div>
+            </div>
+            
+            
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="wrapper wrapper-content">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="tabs-container">
+
+				<uib-tabset>
+					<uib-tab heading="班组设置">
+						<div class="panel-body" ng-controller="TeamController">
+							<form method="get" class="form-horizontal">
+								<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+									<div class="col-sm-10">
+
+										<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+											<input ng-model="$parent.currentFactory" type="radio" id="factory{{factory.id}}" ng-value="factory.id" name="radioFactory" ng-change="changeFactory()">
+											<label for="factory{{factory.id}}"> {{factory.name}} </label>
+										</div>
+
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group"><label class="col-sm-2 control-label">请选择车间</label>
+
+									<div class="col-sm-10">
+
+										<div ng-repeat="shop in shops" class="radio radio-info radio-inline">
+											<input ng-model="$parent.currentShop" type="radio" id="shop{{shop.id}}" value="{{shop.id}}" name="radioShop" ng-change="changeShop()">
+											<label for="shop{{shop.id}}"> {{shop.name}} </label>
+										</div>
+
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group"><label class="col-sm-2 control-label">请选择生产线</label>
+
+									<div class="col-sm-10">
+
+										<div ng-repeat="line in lines" class="radio radio-info radio-inline">
+											<input ng-model="$parent.currentLine" type="radio" id="line{{line.id}}" value="{{line.id}}" name="radioline" ng-change="changeShop()">
+											<label for="line{{line.id}}"> {{line.name}} </label>
+										</div>
+
+									</div>
+								</div>
+							</form>
+							<div class="hr-line-dashed"></div>
+							<a ng-click="addTeam()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加班组</a>
+							<table class="table table-bordered table-hover" >
+								<thead>
+									<tr>
+										<th class="text-center">名称</th>
+										<th class="text-center">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in teams">
+										<td class="text-center">{{ team.name }}</td>
+										<td class="text-center">
+											<a ng-click="editTeam(team)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+											<a ng-click="deleteTeam(team)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</uib-tab>
+					<uib-tab heading="班次零件列表" >
+							<div class="panel-body" ng-controller="PartShiftController">
+								<!--add button-->
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">班组</th>
+											<th class="text-center">零件</th>
+											<th class="text-center">产量</th>
+											<th class="text-center">开始时间</th>
+											<th class="text-center">结束时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="partshift in partshifts">
+											<td class="text-center">{{ partshift.team_id }}</td>
+											<td class="text-center">{{ partshift.part_id }}</td>
+											<td class="text-center">{{ partshift.count }}</td>
+											<td class="text-center">{{ partshift.utc_start_datetime }}</td>
+											<td class="text-center">{{ partshift.utc_end_datetime }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+						<uib-tab heading="班次产品列表" >
+							<div class="panel-body" ng-controller="ProductShiftController">
+								<!--add button-->
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">班组</th>
+											<th class="text-center">产品</th>
+											<th class="text-center">产量</th>
+											<th class="text-center">开始时间</th>
+											<th class="text-center">结束时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="productshift in productshifts">
+											<td class="text-center">{{ productshift.team_id }}</td>
+											<td class="text-center">{{ productshift.product_id }}</td>
+											<td class="text-center">{{ productshift.count }}</td>
+											<td class="text-center">{{ productshift.utc_start_datetime }}</td>
+											<td class="text-center">{{ productshift.utc_end_datetime }}</td>
+											
+											
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+				</uib-tabset>
+
+			</div>
+		</div>
+	</div>
+
+
+
+</div>

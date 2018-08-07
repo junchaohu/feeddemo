@@ -1,0 +1,113 @@
+	<div class="wrapper wrapper-content">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+
+					<uib-tabset>
+						<uib-tab heading="分表" >
+							<div class="panel-body" ng-controller="MeterController">
+								<a ng-click="addMeter()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加表</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">操作</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="meter in meters">
+											<td class="text-center">{{ meter.name }}</td>
+											
+											<td class="text-center">
+												<a class="btn btn-primary btn-rounded btn-xs" ng-click="editMeter(meter)" >修改</a>
+												<a ng-click="deleteMeter(meter)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								</div>
+							</uib-tab>
+							<uib-tab heading="总表">
+								<div class="panel-body" ng-controller="MasterMeterController">
+									<a ng-click="addMasterMeter()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加总表</a>
+									<table class="table table-bordered table-hover" >
+										<thead>
+											<tr>
+												<th class="text-center">名称</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="mastermeter in mastermeters">
+												<td class="text-center">{{ mastermeter.name }}</td>
+												<td class="text-center">
+													<a class="btn btn-primary btn-rounded btn-xs" ng-click="editMasterMeter(mastermeter)" >修改</a>
+													<a ng-click="deleteMasterMeter(mastermeter)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</uib-tab>
+
+							<uib-tab heading="虚拟表">
+								<div class="panel-body" ng-controller="VirtualMeterController">
+									<a ng-click="addVirtualMeter()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加虚拟表</a>
+									<table class="table table-bordered table-hover" >
+										<thead>
+											<tr>
+												<th class="text-center">名称</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="virtualmeter in virtualmeters">
+												<td class="text-center">{{ virtualmeter.name }}</td>
+												<td class="text-center">
+													<a ng-click="editVirtualMeter(virtualmeter)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+													<a ng-click="deleteVirtualMeter(virtualmeter)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</uib-tab>
+
+							<uib-tab heading="离线表">
+								<div class="panel-body" ng-controller="OfflineMeterController">
+									 <a ng-click="addOfflineMeter()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加离线表</a>
+									<table class="table table-bordered table-hover" >
+										<thead>
+											<tr>
+												<th class="text-center">名称</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="offlinemeter in offlinemeters">
+												<td class="text-center">{{ offlinemeter.name }}</td>
+												<td class="text-center">
+													<a ng-click="editOfflineMeter(offlinemeter)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+													<a ng-click="deleteOfflineMeter(offlinemeter)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</uib-tab>
+
+						</uib-tabset>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>

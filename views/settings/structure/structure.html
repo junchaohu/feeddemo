@@ -1,0 +1,343 @@
+<div class="wrapper wrapper-content" ng-controller="StructureController">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="tabs-container">
+
+				<uib-tabset>
+					<uib-tab heading="集团" >
+						<div class="panel-body" ng-controller="CompanyController">
+							<form method="get" class="form-horizontal">
+								<div class="form-group"><label class="col-sm-2 control-label">名称</label>
+
+									<div class="col-sm-10">
+										<input type="text" ng-model="company.name" class="form-control"></div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group"><label class="col-sm-2 control-label">联系人</label>
+
+										<div class="col-sm-10"><input type="text" ng-model="company.ems_contact_name" class="form-control"> <span
+											class="help-block m-b-none">能耗系统联系人.</span>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group"><label class="col-sm-2 control-label">邮箱</label>
+
+										<div class="col-sm-10"><input ng-model="company.ems_contact_email" class="form-control"></div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group"><label class="col-sm-2 control-label">联系方式</label>
+
+										<div class="col-sm-10"><input ng-model="company.ems_contact_phone" type="text" placeholder="phone" class="form-control">
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+
+									<div class="form-group">
+										<div class="col-sm-4 col-sm-offset-2">
+											<button class="btn btn-white" type="submit">重置</button>
+											<button ng-click="updateCompany()" class="btn btn-primary" type="submit">保存</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</uib-tab>
+						<uib-tab heading="工厂">
+							<div class="panel-body" ng-controller="FactoryController">
+								<a ng-click="addFactory()" class="btn btn-primary btn-rounded btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加工厂</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">联系人</th>
+											<th class="text-center">邮箱</th>
+											<th class="text-center">联系方式</th>
+											<th class="text-center">时区</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="factory in factories">
+											<td class="text-center">{{ factory.name }}</td>
+											<td class="text-center">{{ factory.ems_contact_name }}</td>
+											<td class="text-center">{{ factory.ems_contact_phone }}</td>
+											<td class="text-center">{{ factory.ems_contact_email }}</td>
+											<td class="text-center">{{ factory.timezone_id }}</td>
+											<td class="text-center">
+												<a class="btn btn-primary btn-rounded btn-xs" ng-click="editFactory(factory)" >修改</a>
+												<a ng-click="deleteFactory(factory)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+						<uib-tab heading="车间">
+							<div class="panel-body" ng-controller="ShopController">
+								<form method="get" class="form-horizontal">
+									<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentFactory" type="radio" id="factory{{factory.id}}" ng-value="factory.id" name="radioFactory" ng-change="changeFactory()">
+												<label for="factory{{factory.id}}"> {{factory.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<a ng-click="addShop()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加车间</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">联系人</th>
+											<th class="text-center">邮箱</th>
+											<th class="text-center">联系方式</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="shop in shops">
+											<td class="text-center">{{ shop.name }}</td>
+											<td class="text-center">{{ shop.ems_contact_name }}</td>
+											<td class="text-center">{{ shop.ems_contact_phone }}</td>
+											<td class="text-center">{{ shop.ems_contact_email }}</td>
+											<td class="text-center">
+												<a ng-click="editShop(shop)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+												<a ng-click="deleteShop(shop)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+						<uib-tab heading="生产线">
+							<div class="panel-body" ng-controller="LineController">
+								<form method="get" class="form-horizontal">
+									<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentFactory" type="radio" id="factoryline{{factory.id}}" ng-value="factory.id" name="radioFactoryLine" ng-change="changeFactory()">
+												<label for="factoryline{{factory.id}}"> {{factory.name}} </label>
+											</div>
+
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group"><label class="col-sm-2 control-label">请选择车间</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="shop in shops" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentShop" type="radio" id="shopline{{shop.id}}" value="{{shop.id}}" name="radioShop" ng-change="changeShop()">
+												<label for="shopline{{shop.id}}"> {{shop.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<a ng-click="addLine()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加生产线</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">联系人</th>
+											<th class="text-center">邮箱</th>
+											<th class="text-center">联系方式</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="line in lines">
+											<td class="text-center">{{ line.name }}</td>
+											<td class="text-center">{{ line.ems_contact_name }}</td>
+											<td class="text-center">{{ line.ems_contact_phone }}</td>
+											<td class="text-center">{{ line.ems_contact_email }}</td>
+											<td class="text-center">
+												<a ng-click="editLine(line)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+												<a ng-click="deleteLine(line)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+						<uib-tab heading="附属生产系统">
+							<div class="panel-body" ng-controller="AccessorialSystemController">
+								<form method="get" class="form-horizontal">
+									<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentFactory" type="radio" id="factoryacc{{factory.id}}" ng-value="factory.id" name="radioFactory" ng-change="changeFactory()">
+												<label for="factoryacc{{factory.id}}"> {{factory.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<a ng-click="addAccessorialSystem()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加附属生产系统</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">联系人</th>
+											<th class="text-center">邮箱</th>
+											<th class="text-center">联系方式</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="accessorialSystem in accessorialSystems">
+											<td class="text-center">{{ accessorialSystem.name }}</td>
+											<td class="text-center">{{ accessorialSystem.ems_contact_name }}</td>
+											<td class="text-center">{{ accessorialSystem.ems_contact_phone }}</td>
+											<td class="text-center">{{ accessorialSystem.ems_contact_email }}</td>
+											<td class="text-center">
+												<a ng-click="editAccessorialSystem(accessorialSystem)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+												<a ng-click="deleteAccessorialSystem(accessorialSystem)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+						<uib-tab heading="辅助生产系统">
+							<div class="panel-body" ng-controller="AuxiliarySystemController">
+								<form method="get" class="form-horizontal">
+									<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentFactory" type="radio" id="factoryaux{{factory.id}}" ng-value="factory.id" name="radioFactory" ng-change="changeFactory()">
+												<label for="factoryaux{{factory.id}}"> {{factory.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<a ng-click="addAuxiliarySystem()" class="btn btn-primary btn-rounded  btn-outline" href=""><i class="fa fa-plus-circle"></i> 添加辅助生产系统</a>
+								<table class="table table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th class="text-center">名称</th>
+											<th class="text-center">联系人</th>
+											<th class="text-center">邮箱</th>
+											<th class="text-center">联系方式</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="auxiliarySystem in auxiliarySystems">
+											<td class="text-center">{{ auxiliarySystem.name }}</td>
+											<td class="text-center">{{ auxiliarySystem.ems_contact_name }}</td>
+											<td class="text-center">{{ auxiliarySystem.ems_contact_phone }}</td>
+											<td class="text-center">{{ auxiliarySystem.ems_contact_email }}</td>
+											<td class="text-center">
+												<a ng-click="editAuxiliarySystem(auxiliarySystem)" class="btn btn-primary btn-rounded btn-xs" >修改</a>
+												<a ng-click="deleteAuxiliarySystem(auxiliarySystem)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</uib-tab>
+
+						<uib-tab heading="工厂费率设置">
+							<div class="panel-body" ng-controller="FactoryTariffPairController">
+								<form method="get" class="form-horizontal">
+									<div class="form-group"><label class="col-sm-2 control-label">请选择工厂</label>
+
+										<div class="col-sm-10">
+
+											<div ng-repeat="factory in factories" class="radio radio-info radio-inline">
+												<input ng-model="$parent.currentFactory" type="radio" id="factorytariff{{factory.id}}" ng-value="factory" name="radioFactoryTariff" ng-change="changeFactory()">
+												<label for="factorytariff{{factory.id}}"> {{factory.name}} </label>
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+								<div class="hr-line-dashed"></div>
+								<div class="row">
+									<div class="col-lg-2">
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												费率列表
+											</div>
+											<div class="panel-body"
+												uib-tooltip="请拖拽至右侧区域内完成绑定" >
+												<a class="source btn btn-info btn-rounded btn-block" 
+												ng-repeat="tariff in tariffs"
+												x-hjc-draggable="true"
+												 > {{tariff.name}}</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-2">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												{{currentFactory.name}}
+											</div>
+											<div class="panel-body"
+											x-hjc-drop-target="true" 
+											x-on-drop="pairTariff(dragEl,dropEl)"
+											uib-tooltip="请拖拽至右侧区域内解除绑定" >
+											
+											<a class="btn btn-primary btn-rounded btn-block" 
+											ng-repeat="factorytariff in factorytariffs"
+											x-hjc-draggable="true"
+											 > {{factorytariff.name}}</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-2">
+									<div class="panel panel-danger">
+										<div class="panel-heading">
+											Trash
+										</div>
+										<div class="panel-body trash" >
+											<img class="trashcan" 
+											src="img/trashcan.jpg"
+											x-hjc-drop-target="true" 
+											x-on-drop="deleteTariffPair(dragEl,dropEl)">
+										</div>
+										
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</uib-tab>
+
+				</uib-tabset>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,178 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">{{operation}}费率</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-4 b-r">
+                <form method="get" class="form-horizontal">
+                    <div class="form-group"><label class="col-sm-5 control-label">名称</label>
+
+                        <div class="col-sm-7"><input ng-model="tariff.name" type="text" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-5 control-label">能耗分类</label>
+
+                        <div class="col-sm-7">
+                            <ui-select ng-model="tariff.energy_category.id" theme="bootstrap">
+                                <ui-select-match placeholder="请选择能耗分类">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="category.id as category in categories | filter: $select.search">
+                                    <div ng-bind-html="category.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-5 control-label">费率类型</label>
+
+                        <div class="col-sm-7">
+                            <select ng-disabled="disable"  ng-model="tariff.tariff_type" class="form-control m-b" name="tariff">
+                                <option value="flat">普通费率</option>
+                                <option value="block">分量计费</option>
+                                <option value="timeofuse">分时计费</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-5 control-label">单位</label>
+
+                        <div class="col-sm-7"><input ng-model="tariff.unit_of_price" type="text" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                </form>
+            </div>
+            <div class="col-sm-8">
+                <div ng-show="tariff.tariff_type=='flat'">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group"><label class="col-sm-2 control-label">价格</label>
+
+                            <div class="col-sm-10"><input ng-model="tariff.flat.price" type="text" class="form-control"></div>
+                        </div>
+                        
+                        <div class="hr-line-dashed"></div>
+
+                    </form>
+                    
+                </div>
+                <table id="blockTable" ng-show="tariff.tariff_type=='block'" class="footable table table-bordered table-hover" data-sort="false" data-page-size="7" >
+                    <thead>
+                        <tr>
+                            <th class="text-center">起始量</th>
+                            <th class="text-center">结束量</th>
+                            <th class="text-center">价格</th>
+                            <th class="text-center">操作</th>
+
+                        </tr>
+                        <tr>
+                            <td class="text-center sm ">
+                                <input ng-model="b.start_amount" class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="b.end_amount"  class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="b.price" class="form-control input-sm">
+                            </td>
+
+                            <td class="text-center sm">
+                                <a class="btn btn-primary btn-rounded btn-xs" ng-click="add(b)" >添加</a>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr ng-repeat="bl in block">
+                            <td class="text-center sm">{{ bl.start_amount }}</td>
+                            <td class="text-center sm">{{ bl.end_amount }}</td>
+                            <td class="text-center sm">{{ bl.price }}</td>
+
+                            <td class="text-center sm">
+                                <a ng-click="delete($index)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="7">
+                            <ul class="pagination pull-right"></ul>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <table id="touTable" ng-show="tariff.tariff_type=='timeofuse'" class="footable table table-bordered table-hover" data-sort="false" data-page-size="7" >
+                    <thead>
+                        <tr>
+                            <th class="text-center">开始日期</th>
+                            <th class="text-center">结束日期</th>
+                            <th class="text-center">开始时间</th>
+                            <th class="text-center">结束时间</th>
+                            <th class="text-center">峰谷平</th>
+                            <th class="text-center">价格</th>
+                            <th class="text-center">操作</th>
+
+                        </tr>
+                        <tr>
+                            <td class="text-center sm ">
+                                <input ng-model="t.start_mmdd" uib-tooltip="请使用格式0101-->代表01月01日!" class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="t.end_mmdd" uib-tooltip="请使用格式0101-->代表01月01日!" class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="t.start_hhmm" uib-tooltip="请使用格式0101-->代表01点01分!" class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="t.end_hhmm" uib-tooltip="请使用格式0101-->代表01点01分!" class="form-control input-sm">
+                            </td>
+                            <td class="text-center sm">
+                                <select ng-model="t.peak_type" class="form-control  input-sm sm" name="peak">
+                                <option value="onpeak">峰</option>
+                                <option value="offpeak">谷</option>
+                                <option value="midpeak">平</option>
+                            </select>
+                            </td>
+                            <td class="text-center sm">
+                                <input ng-model="t.price" class="form-control input-sm">
+                            </td>
+
+                            <td class="text-center sm">
+                                <a class="btn btn-primary btn-rounded btn-xs" ng-click="add(t)" >添加</a>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr ng-repeat="tou in timeofuse">
+                            <td class="text-center sm">{{ tou.start_mmdd }}</td>
+                            <td class="text-center sm">{{ tou.end_mmdd }}</td>
+                            <td class="text-center sm">{{ tou.start_hhmm }}</td>
+                            <td class="text-center sm">{{ tou.end_hhmm }}</td>
+                            <td class="text-center sm">{{ showPeakType(tou.peak_type) }}</td>
+                            <td class="text-center sm">{{ tou.price }}</td>
+
+                            <td class="text-center sm">
+                                <a ng-click="delete($index)" class="btn btn-danger btn-rounded btn-xs" >删除</a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="7">
+                            <ul class="pagination pull-right"></ul>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>

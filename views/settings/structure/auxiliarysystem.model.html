@@ -1,0 +1,37 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">{{operation}}辅助生产系统</h4>
+    </div>
+    <div class="modal-body">
+        <form method="get" class="form-horizontal">
+            <div class="form-group"><label class="col-sm-2 control-label">名称</label>
+
+                <div class="col-sm-10"><input ng-model="auxiliarySystem.name" type="text" class="form-control"></div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group"><label class="col-sm-2 control-label">联系人</label>
+
+                <div class="col-sm-10"><input ng-model="auxiliarySystem.ems_contact_name" type="text" class="form-control"> <span
+                        class="help-block m-b-none">能耗系统联系人.</span>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group"><label class="col-sm-2 control-label">邮箱</label>
+
+                <div class="col-sm-10"><input ng-model="auxiliarySystem.ems_contact_email"  class="form-control"></div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group"><label class="col-sm-2 control-label">联系方式</label>
+
+                <div class="col-sm-10"><input ng-model="auxiliarySystem.ems_contact_phone" type="text" placeholder="phone" class="form-control">
+                </div>
+            </div>
+            
+            
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>
